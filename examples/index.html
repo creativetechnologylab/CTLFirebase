@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Firebase client</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <!-- Do your HTML here -->
+
+        <!-- EXAMPLE -->
+        This message goes via the database <br/>
+        <button id="testButton">Click me</button><br/>
+        <textarea id="messages"></textarea>
+        <!-- END EXAMPLE -->
+
+        <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-database.js"></script>
+        <script src="../CTLFirebase/CTLFirebase-client.js"></script>
+
+        <script>
+        // You need to get these from Firebase
+        // https://support.google.com/firebase/answer/7015592?hl=en
+        const credentials = { ... };
+        const options = {};
+        
+        const database = new CTLFirebase(credentials, options);
+        
+        // Sets up an event listener for the key 'TEST_KEY'
+        database.listen('TEST_KEY', data => {
+            document.getElementById('messages').innerText = data.value;
+        });
+        
+        // Writes a message to 'TEST_KEY' when button is clicked
+        document.getElementById('testButton').addEventListener('click', function() {
+            database.write('TEST_KEY', Math.random());
+        });
+        </script>
+    </body>
+</html>
